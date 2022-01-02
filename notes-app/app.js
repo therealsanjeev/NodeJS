@@ -1,5 +1,23 @@
 const fs = require('fs')
-const validator = require('validator')
+const yargs=require('yargs')
+const getNotes=require('./note')
 
-console.log(validator.isEmail("sanjeev@ds222.com"))
-fs.appendFileSync('test.txt', "test Node!")
+//create commond
+yargs.command({
+    command:'add',
+    describe:'Add new note',
+    handler:function (){
+        console.log('Adding a new note!')
+    }
+})
+yargs.command({
+    command:'remove',
+    describe:'Remove note from file',
+    handler:function (){
+        console.log('Removing note from file :(')
+    }
+
+})
+
+
+// console.log(yargs.argv);
