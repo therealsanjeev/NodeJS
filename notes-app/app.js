@@ -1,6 +1,6 @@
 const fs = require('fs')
 const yargs=require('yargs')
-const getNotes=require('./note')
+const notes=require('./notes.js')
 
 //create commond
 yargs.command({
@@ -19,8 +19,10 @@ yargs.command({
         }
     },
     handler:function (argv){
-        console.log('Title : '+argv.title)
-        console.log('Description : '+argv.description)
+        const add=notes.addNotes(argv.title,argv.description)
+        
+        // console.log('Title : '+argv.title)
+        // console.log('Description : '+argv.description)
     }
 })
 yargs.command({
