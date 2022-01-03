@@ -40,7 +40,23 @@ const loadNotes=function(){
         return []
     }
 }
+const removeNotes=function(title){
+    const notes=loadNotes()
+
+    if(notes.length!=0){
+        const allNotes=notes.filter(function(notes){
+            return title!==notes.title
+        })
+        const toStringAllNotes=JSON.stringify(allNotes)
+        fs.writeFileSync('notes.json',toStringAllNotes)
+        console.log('Title : '+title+' successfully removed!')
+    }else{
+        console.log('This note is not present in your notes list, try again:(')
+    }
+
+}
 module.exports={
     getNotes:getNotes,
-    addNotes:addNotes
+    addNotes:addNotes,
+    removeNotes:removeNotes
 }
