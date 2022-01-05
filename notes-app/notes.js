@@ -1,4 +1,5 @@
 const fs=require('fs')
+const chalk=require('chalk')
 
 const getNotes=function(){
     return "Your notes..."
@@ -9,6 +10,7 @@ const addNotes=function(title,body){
     const duplicateCheck=notes.filter(function(note){
         return note.title===title
     })
+    debugger
     if(duplicateCheck.length===0){
         notes.push({
             title:title,
@@ -47,16 +49,25 @@ const removeNotes=function(title){
         const allNotes=notes.filter(function(notes){
             return title!==notes.title
         })
-        const toStringAllNotes=JSON.stringify(allNotes)
-        fs.writeFileSync('notes.json',toStringAllNotes)
-        console.log('Title : '+title+' successfully removed!')
+        if(allNotes.length<notes){
+            saveNotes(allNotes)
+            console.log(chalk.green.inverse('Title : '+title+' successfully removed!'))
+        }else{
+            console.log(chalk.red.inverse('Title : '+chalk.green(title)+' note is not present in your notes list, try again:('))
+        }
+
     }else{
-        console.log('This note is not present in your notes list, try again:(')
+        console.log(chalk.red.inverse('Title : '+chalk.green(title)+' note is not present in your notes list, try again:('))
     }
+
+}
+const read=function(title){
+    
 
 }
 module.exports={
     getNotes:getNotes,
     addNotes:addNotes,
-    removeNotes:removeNotes
+    removeNotes:removeNotes,
+    read:read
 }
