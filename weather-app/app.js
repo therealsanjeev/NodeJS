@@ -1,6 +1,8 @@
 const request=require('request')
 const geoCode=require('./geocode')
 const getWeather=require('./getweather')
+const process = require('process');
+
 
 // const baseUrl='http://api.weatherstack.com/current?access_key=df1294a4a0e5612dc74c7907e14222d8&query=New%20York&units=f'
 
@@ -31,14 +33,16 @@ const getWeather=require('./getweather')
    
 // })
 
-
-
-
-
-geoCode('paschim vihar',(error,data)=>{
+// console.log(process.argv)
+geoCode(process.argv[2],(error,data)=>{
     // console.log('Error '+error)
-    console.log('Data '+data.location);
+    if(error){
+        return console.log(error)
+    }
     getWeather(data.location,(error,data)=>{
+        if(error){
+            return console.log(error)
+        }
         console.log(data);
     })
     
