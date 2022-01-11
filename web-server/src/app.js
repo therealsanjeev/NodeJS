@@ -3,6 +3,9 @@ const path=require('path')
 const app=express()
 const hbs=require('hbs')
 
+const geoCode=require('../utils/geocode')
+const getWeather=require('../utils/getweather')
+
 //Define Path for express configs
 const publicDirectoryPath=path.join(__dirname,'../public')
 const viewsPath=path.join(__dirname,'../templates/views')
@@ -40,7 +43,42 @@ app.get('/about',(req,res)=>{
 })
 
 app.get('/weather',(req,res)=>{
-    res.send('weather')
+
+    if(!req.query.address){
+        return res.send({
+            error:'please provide your address'
+        })
+    }
+    
+
+    const address=req.query.address
+    getWeather(address,(error,data)=>{
+        if(error){
+            return res.send({
+                error:error
+            })
+        }
+        console.log(data.location)
+
+        return res.send({
+            data
+        })
+    })
+    // geoCode(address,(error,data)=>{
+    //     // console.log('Error '+error)
+    //     if(error){
+    //         return res.send({
+    //             error:error
+    //         })
+    //     }
+    //     console.log(data)
+        
+        
+    // })
+    // return res.send({
+    //     address:req.query.address,
+    //     weather:'something went wrong:('
+    // })
 })
 
 
