@@ -3,6 +3,7 @@ const path=require('path')
 const app=express()
 const hbs=require('hbs')
 
+const port =process.env.PORT||3000
 const geoCode=require('../utils/geocode')
 const getWeather=require('../utils/getweather')
 
@@ -96,6 +97,6 @@ app.get('*',(req,res)=>{
         errormessage:'page not found:('
     })
 })
-app.listen(3000,()=>{
-    console.log('Server is up on port 3000');
+app.listen(port,()=>{
+    console.log('Server is up on port '+ port);
 })

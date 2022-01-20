@@ -1,6 +1,6 @@
 console.log('Hello JavaScript!');
 
-fetch('http://localhost:3000/weather?address=delhi').then((response)=>{
+fetch('/weather?address=delhi').then((response)=>{
     response.json().then((data)=>{
         if(data.error){
             console.log(data.error)
